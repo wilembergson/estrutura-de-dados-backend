@@ -34,13 +34,13 @@ public class LSE {
 
 	/** Obtém o i-ésimo elemento de uma lista
 	    Retorna o valor encontrado. */
-	public int elemento (int pos) {
+	public No elemento (int pos) {
 	    if (vazia()) {
-	        return -1; // Consulta falhou 
+			throw new ErroPadrao("Posição inválida."); // Consulta falhou
 	    }
 
 	    if ((pos < 1) || (pos > tamanho())){
-	        return -1; // Posicao invalida 
+			throw new ErroPadrao("Posição inválida."); // Posicao invalida
 	    }
 	    
 	    No aux = cabeca;
@@ -49,8 +49,7 @@ public class LSE {
 	        // modifica "aux" para apontar para o proximo elemento da lista 
 	        aux = aux.getProx();
 	    }
-
-	    return aux.getConteudo();
+	    return aux;
 	}
 
 	/**Retorna a posição de um elemento pesquisado.
@@ -58,7 +57,7 @@ public class LSE {
 	public int posicao (int dado) {
 	    /* Lista vazia */
 	    if (vazia()) {
-	        throw new IllegalArgumentException("A lista está vazia!");
+	        throw new ErroPadrao("A lista está vazia!");
 	    }
 
 	    /* Percorre a lista do inicio ao fim até encontrar o elemento*/
