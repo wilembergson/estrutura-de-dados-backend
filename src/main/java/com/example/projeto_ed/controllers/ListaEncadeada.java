@@ -28,6 +28,11 @@ public class ListaEncadeada {
         listaEnc.remove(posicao);
     }
 
+    @GetMapping("/obter-item/{pos}")
+    public int obter(@PathVariable("pos") int pos){
+        return listaEnc.elemento(pos).getConteudo();
+    }
+
     private List<No> listar(){
         ArrayList<No> listaAux = new ArrayList<No>();
         for(int i=1; i<=listaEnc.tamanho(); i++){
