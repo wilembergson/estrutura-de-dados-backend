@@ -1,6 +1,7 @@
 package com.example.projeto_ed.controllers;
 
 import com.example.projeto_ed.dto.NovoElementoDTO;
+import com.example.projeto_ed.exceptions.ErroPadrao;
 import com.example.projeto_ed.lse.LSE;
 import com.example.projeto_ed.lse.No;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,16 @@ public class ListaEncadeada {
         listaEnc.remove(posicao);
     }
 
-    @GetMapping("/obter-item/{pos}")
-    public int obter(@PathVariable("pos") int pos){
+    @GetMapping("/obter-item")
+    public int obter(@RequestParam(name = "pos", required = false) Integer pos, @RequestParam(name = "val", required = false) Integer val){
+        if(pos == null && val == null) throw new ErroPadrao("Nenhum valor ou posição informados.");
+        if(val != null){
+           List<No> lista = listar();
+           for(No no: lista){
+               if(no.getConteudo() == val) return val;
+           }
+           throw new ErroPadrao("Elemento não encontrado na lista.");
+       }
         return listaEnc.elemento(pos).getConteudo();
     }
 
