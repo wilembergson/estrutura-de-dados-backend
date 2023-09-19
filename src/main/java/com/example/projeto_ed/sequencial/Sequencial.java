@@ -23,7 +23,9 @@ public class Sequencial {
 		else
 			return false;
 	}
-	
+	public int getTamanhoMax(){
+		return dados.length;
+	}
     /**Verifica se a Lista está cheia */
     public boolean cheia(){
 		if (nElementos == dados.length)
