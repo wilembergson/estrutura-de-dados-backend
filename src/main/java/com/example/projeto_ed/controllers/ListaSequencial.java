@@ -21,7 +21,6 @@ public class ListaSequencial {
     }
     @PostMapping("/tamanho-max")
     public void setMaxTamanho(@RequestBody TamanhoMaxDTO tamanho){
-        System.out.println(tamanho.getTamanho());
         listaEnc = new Sequencial(tamanho.getTamanho());
     }
 
@@ -50,13 +49,13 @@ public class ListaSequencial {
     @GetMapping("/obter-item")
     public int obter(@RequestParam(name = "pos", required = false) Integer pos, @RequestParam(name = "val", required = false) Integer val){
         initializedListCheck();
-        if(pos == null && val == null) throw new ErroPadrao("Nenhum valor ou posição informados.");
+        if(pos == null && val == null) throw new ErroPadrao("Selecione 'Posição' ou 'Valor'.");
         if(val != null){
            List<Integer> lista = listar();
            for(Integer item: lista){
                if(item == val) return val;
            }
-           throw new ErroPadrao("Elemento não encontrado na lista.");
+           throw new ErroPadrao("Valor não encontrado na lista.");
        }
         return listaEnc.elemento(pos);
     }

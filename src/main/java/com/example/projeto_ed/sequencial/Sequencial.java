@@ -76,29 +76,15 @@ public class Sequencial {
 		}
 		throw new ErroPadrao("Posição inválida.");
 	}
-	
-	/**Insere um elemento em uma determinada posição
-    		Retorna false se a lista estiver cheia ou
-    		a posição for inválida. Caso contrário retorna true */
-	public boolean insere (int pos, int valor){
-	    /* Verifica se a lista está cheia ou se a posicao a ser
-	    inserida eh invalida (i.e., > tamanho da lista+1*/
-	    if (cheia() || (pos > nElementos+1) || (pos <=0)){
-	        throw new ErroPadrao("Lista cheia.");
-	    }
 
-	    /* Desloca os elementos após pos, uma posicao a
-	    direita. Isso serve para abrir espaço para insercao
-	    do novo elemento */
+	public boolean insere (int pos, int valor){
+		if ((pos > nElementos+1) || (pos <=0)) throw new ErroPadrao("Posição inválida.");
+		if(cheia())throw new ErroPadrao("Lista cheia.");
 	    for (int i = nElementos; i >= pos; i--){
 	 		 dados[i] = dados[i-1];
 	    }
-
-	    /* Insere o dado na posicao correta */
 	    dados[pos - 1] = valor;
-
-	 	/* Incrementa o numero de elementos na lista */
-	    nElementos++;
+		nElementos++;
 	    return true;
 	}
 	
