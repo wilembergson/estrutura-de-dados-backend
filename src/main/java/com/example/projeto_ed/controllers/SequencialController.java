@@ -3,8 +3,6 @@ package com.example.projeto_ed.controllers;
 import com.example.projeto_ed.dto.NovoElementoDTO;
 import com.example.projeto_ed.dto.TamanhoMaxDTO;
 import com.example.projeto_ed.exceptions.ErroPadrao;
-import com.example.projeto_ed.lse.LSE;
-import com.example.projeto_ed.lse.No;
 import com.example.projeto_ed.sequencial.Sequencial;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/lista-sequencial")
-public class ListaSequencial {
+public class SequencialController {
     private Sequencial listaEnc;
 
-    private void initializedListCheck(){
+    private void listaInicializadaCheck(){
         if(listaEnc == null) throw new ErroPadrao("Lista não iniciada.");;
     }
     @PostMapping("/tamanho-max")
@@ -26,18 +24,18 @@ public class ListaSequencial {
 
     @GetMapping("/tamanho-max")
     public Integer getMaxTamanho(){
-        initializedListCheck();
+        listaInicializadaCheck();
         return listaEnc.getTamanhoMax();
     }
     @GetMapping("/obterlista")
     public List<Integer> obterLista(){
-        initializedListCheck();
+        listaInicializadaCheck();
         return listar();
     }
 
     @PostMapping("/adicionar")
     public void adicionar(@RequestBody NovoElementoDTO elemento){
-        initializedListCheck();
+        listaInicializadaCheck();
         listaEnc.insere(elemento.getPosicao(), elemento.getValor());
     }
 
@@ -48,7 +46,7 @@ public class ListaSequencial {
 
     @GetMapping("/obter-item")
     public int obter(@RequestParam(name = "pos", required = false) Integer pos, @RequestParam(name = "val", required = false) Integer val){
-        initializedListCheck();
+        listaInicializadaCheck();
         if(pos == null && val == null) throw new ErroPadrao("Selecione 'Posição' ou 'Valor'.");
         if(val != null){
            List<Integer> lista = listar();

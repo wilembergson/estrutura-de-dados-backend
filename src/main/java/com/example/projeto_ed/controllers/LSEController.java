@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/lista-encadeada")
-public class ListaEncadeada {
+public class LSEController {
     private LSE listaEnc = new LSE();
 
     @GetMapping("/obterlista")
@@ -31,13 +31,13 @@ public class ListaEncadeada {
 
     @GetMapping("/obter-item")
     public int obter(@RequestParam(name = "pos", required = false) Integer pos, @RequestParam(name = "val", required = false) Integer val){
-        if(pos == null && val == null) throw new ErroPadrao("Nenhum valor ou posição informados.");
+        if(pos == null && val == null) throw new ErroPadrao("Selecione 'Posição' ou 'Valor'.");
         if(val != null){
            List<No> lista = listar();
            for(No no: lista){
                if(no.getConteudo() == val) return val;
            }
-           throw new ErroPadrao("Elemento não encontrado na lista.");
+           throw new ErroPadrao("Valor não encontrado na lista.");
        }
         return listaEnc.elemento(pos).getConteudo();
     }
