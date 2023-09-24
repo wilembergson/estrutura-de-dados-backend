@@ -3,7 +3,6 @@ package com.example.projeto_ed.controllers;
 import com.example.projeto_ed.dto.LDEdto;
 import com.example.projeto_ed.dto.NovoElementoDTO;
 import com.example.projeto_ed.estruturas.lde.LDE;
-import com.example.projeto_ed.estruturas.lde.No;
 import com.example.projeto_ed.exceptions.ErroPadrao;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,16 +40,16 @@ public class LDEController {
         listaEnc.remove(posicao);
     }
 
-    /*@GetMapping("/obter-item")
+    @GetMapping("/obter-item")
     public int obter(@RequestParam(name = "pos", required = false) Integer pos, @RequestParam(name = "val", required = false) Integer val){
         if(pos == null && val == null) throw new ErroPadrao("Selecione 'Posição' ou 'Valor'.");
         if(val != null){
-           List<No> lista = listar();
-           for(No no: lista){
-               if(no.getConteudo() == val) return val;
+           List<LDEdto> lista = listar();
+           for(LDEdto no: lista){
+               if(no.getValor() == val) return val;
            }
            throw new ErroPadrao("Valor não encontrado na lista.");
-       }
+        }
         return listaEnc.elemento(pos).getConteudo();
-    }*/
+    }
 }
