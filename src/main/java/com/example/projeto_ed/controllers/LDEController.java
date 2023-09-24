@@ -1,18 +1,18 @@
 package com.example.projeto_ed.controllers;
 
 import com.example.projeto_ed.dto.NovoElementoDTO;
+import com.example.projeto_ed.estruturas.lde.LDE;
+import com.example.projeto_ed.estruturas.lde.No;
 import com.example.projeto_ed.exceptions.ErroPadrao;
-import com.example.projeto_ed.estruturas.lse.LSE;
-import com.example.projeto_ed.estruturas.lse.No;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lista-encadeada")
-public class LSEController {
-    private LSE listaEnc = new LSE();
+@RequestMapping("/lde")
+public class LDEController {
+    private LDE listaEnc = new LDE();
 
     private List<No> listar(){
         ArrayList<No> listaAux = new ArrayList<No>();
@@ -21,18 +21,17 @@ public class LSEController {
         }
         return listaAux;
     }
+    @PostMapping("/adicionar")
+    public void adicionar(@RequestBody NovoElementoDTO elemento){
+        listaEnc.insere(elemento.getPosicao(), elemento.getValor());
+    }
 
     @GetMapping("/obterlista")
     public List<No> obterLista(){
         return listar();
     }
 
-    @PostMapping("/adicionar")
-    public void adicionar(@RequestBody NovoElementoDTO elemento){
-        listaEnc.insere(elemento.getPosicao(), elemento.getValor());
-    }
-
-    @DeleteMapping("/remover/{posicao}")
+    /*@DeleteMapping("/remover/{posicao}")
     public void remover(@PathVariable("posicao") int posicao){
         listaEnc.remove(posicao);
     }
@@ -48,5 +47,5 @@ public class LSEController {
            throw new ErroPadrao("Valor não encontrado na lista.");
        }
         return listaEnc.elemento(pos).getConteudo();
-    }
+    }*/
 }

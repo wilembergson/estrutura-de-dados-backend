@@ -3,7 +3,7 @@ package com.example.projeto_ed.controllers;
 import com.example.projeto_ed.dto.NovoElementoDTO;
 import com.example.projeto_ed.dto.TamanhoMaxDTO;
 import com.example.projeto_ed.exceptions.ErroPadrao;
-import com.example.projeto_ed.sequencial.Sequencial;
+import com.example.projeto_ed.estruturas.sequencial.Sequencial;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

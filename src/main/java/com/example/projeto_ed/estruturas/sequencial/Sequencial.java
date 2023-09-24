@@ -1,4 +1,4 @@
-package com.example.projeto_ed.sequencial;
+package com.example.projeto_ed.estruturas.sequencial;
 
 import com.example.projeto_ed.exceptions.ErroPadrao;
 

@@ -1,4 +1,4 @@
-package com.example.projeto_ed.lse;
+package com.example.projeto_ed.estruturas.lse;
 
 import com.example.projeto_ed.exceptions.ErroPadrao;
 

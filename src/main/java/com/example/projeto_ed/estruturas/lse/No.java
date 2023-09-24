@@ -1,4 +1,4 @@
-package com.example.projeto_ed.lse;
+package com.example.projeto_ed.estruturas.lse;
 
 public class No {
     private int conteudo;
