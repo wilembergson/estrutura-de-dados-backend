@@ -1,5 +1,6 @@
 package com.example.projeto_ed.controllers;
 
+import com.example.projeto_ed.dto.LDEdto;
 import com.example.projeto_ed.dto.NovoElementoDTO;
 import com.example.projeto_ed.estruturas.lde.LDE;
 import com.example.projeto_ed.estruturas.lde.No;
@@ -14,10 +15,14 @@ import java.util.List;
 public class LDEController {
     private LDE listaEnc = new LDE();
 
-    private List<No> listar(){
-        ArrayList<No> listaAux = new ArrayList<No>();
+    private List<LDEdto> listar(){
+        ArrayList<LDEdto> listaAux = new ArrayList<LDEdto>();
         for(int i=1; i<=listaEnc.tamanho(); i++){
-            listaAux.add(listaEnc.elemento(i));
+            LDEdto dado = new LDEdto();
+            if(listaEnc.elemento(i).getAnt() == null) dado.setAnt(false);
+            if(listaEnc.elemento(i).getProx() == null) dado.setProx(false);
+            dado.setValor(listaEnc.elemento(i).getConteudo());
+            listaAux.add(dado);
         }
         return listaAux;
     }
@@ -27,7 +32,7 @@ public class LDEController {
     }
 
     @GetMapping("/obterlista")
-    public List<No> obterLista(){
+    public List<LDEdto> obterLista(){
         return listar();
     }
 

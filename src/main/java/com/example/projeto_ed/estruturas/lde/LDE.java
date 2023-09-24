@@ -156,9 +156,11 @@ public class LDE {
      false caso contrario */
     public boolean insere(int pos, int dado) {
         if ((vazia()) && (pos != 1)){
-            return false; /* lista vazia mas posicao inv*/
+            throw new ErroPadrao("Lista vazia mas posição inválida.");
         }
-
+        if ((!vazia()) && (pos > tamanho + 1) || (pos < 1)){
+            throw new ErroPadrao("Posição inválida.");
+        }
         /* inserção no início da lista (ou lista vazia)*/
         if (pos == 1){
             return insereInicioLista(dado);
