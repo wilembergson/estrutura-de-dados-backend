@@ -36,12 +36,12 @@ public class LDEController {
         return listar();
     }
 
-    /*@DeleteMapping("/remover/{posicao}")
+    @DeleteMapping("/remover/{posicao}")
     public void remover(@PathVariable("posicao") int posicao){
         listaEnc.remove(posicao);
     }
 
-    @GetMapping("/obter-item")
+    /*@GetMapping("/obter-item")
     public int obter(@RequestParam(name = "pos", required = false) Integer pos, @RequestParam(name = "val", required = false) Integer val){
         if(pos == null && val == null) throw new ErroPadrao("Selecione 'Posição' ou 'Valor'.");
         if(val != null){

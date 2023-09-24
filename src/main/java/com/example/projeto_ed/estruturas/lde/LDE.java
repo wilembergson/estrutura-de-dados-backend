@@ -251,7 +251,10 @@ public class LDE {
     public int remove(int pos) {
         // Lista vazia
         if (vazia()) {
-            return -1;
+            throw new ErroPadrao("Lista vazia.");
+        }
+        if ((pos > tamanho) || (pos < 1)){
+            throw new ErroPadrao("Posição inválida.");
         }
 
         // Remoção do elemento da cabeça da lista
