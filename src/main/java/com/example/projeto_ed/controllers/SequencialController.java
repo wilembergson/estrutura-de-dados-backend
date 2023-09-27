@@ -12,20 +12,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/lista-sequencial")
 public class SequencialController {
-    private Sequencial listaEnc;
+    private Sequencial lista;
 
     private void listaInicializadaCheck(){
-        if(listaEnc == null) throw new ErroPadrao("Lista não iniciada.");;
+        if(lista == null) throw new ErroPadrao("Lista não iniciada.");;
     }
     @PostMapping("/tamanho-max")
     public void setMaxTamanho(@RequestBody TamanhoMaxDTO tamanho){
-        listaEnc = new Sequencial(tamanho.getTamanho());
+        lista = new Sequencial(tamanho.getTamanho());
     }
 
     @GetMapping("/tamanho-max")
     public Integer getMaxTamanho(){
         listaInicializadaCheck();
-        return listaEnc.getTamanhoMax();
+        return lista.getTamanhoMax();
     }
     @GetMapping("/obterlista")
     public List<Integer> obterLista(){
@@ -36,12 +36,12 @@ public class SequencialController {
     @PostMapping("/adicionar")
     public void adicionar(@RequestBody NovoElementoDTO elemento){
         listaInicializadaCheck();
-        listaEnc.insere(elemento.getPosicao(), elemento.getValor());
+        lista.insere(elemento.getPosicao(), elemento.getValor());
     }
 
     @DeleteMapping("/remover/{posicao}")
     public void remover(@PathVariable("posicao") int posicao){
-        listaEnc.remove(posicao);
+        lista.remove(posicao);
     }
 
     @GetMapping("/obter-item")
@@ -55,14 +55,14 @@ public class SequencialController {
            }
            throw new ErroPadrao("Valor não encontrado na lista.");
        }
-        return listaEnc.elemento(pos);
+        return lista.elemento(pos);
     }
 
     private List<Integer> listar(){
-        if(listaEnc.getTamanhoMax() == 0) throw  new ErroPadrao("lista não definida!");
+        if(lista.getTamanhoMax() == 0) throw  new ErroPadrao("lista não definida!");
         ArrayList<Integer> listaAux = new ArrayList<Integer>();
-        for(int i=1; i<=listaEnc.tamanho(); i++){
-            listaAux.add(listaEnc.elemento(i));
+        for(int i = 1; i<= lista.tamanho(); i++){
+            listaAux.add(lista.elemento(i));
         }
         return listaAux;
     }

@@ -13,7 +13,6 @@ public class LDE {
         tamanho = 0;
     }
 
-    /** Verifica se a Lista está vazia */
     public boolean vazia() {
         if (tamanho == 0)
             return true;
@@ -21,139 +20,77 @@ public class LDE {
             return false;
     }
 
-    /**Obtém o tamanho da Lista*/
     public int tamanho() {
         return tamanho;
     }
 
-    /** Obtém o i-ésimo elemento de uma lista
-     Retorna o valor encontrado. */
     public No elemento (int pos) {
         No aux = inicio;
         int cont = 1;
 
         if (vazia()) {
-            throw new ErroPadrao("Lista vazia."); // Consulta falhou
+            throw new ErroPadrao("Lista vazia.");
         }
 
         if ((pos < 1) || (pos > tamanho())){
             throw new ErroPadrao("Posição inválida.");
         }
 
-        // Percorre a lista do 1o elemento até pos
         while (cont < pos){
-            // modifica "aux" para apontar para o proximo elemento da lista
             aux = aux.getProx();
             cont++;
         }
-
         return aux;
     }
 
-    /**Retorna a posição de um elemento pesquisado.
-     Retorna 0 caso não seja encontrado */
-    public int posicao (int dado) {
-        int cont = 1;
-        No aux;
-
-        /* Lista vazia */
-        if (vazia()) {
-            return -1;
-        }
-
-        /* Percorre a lista do inicio ao fim até encontrar o elemento*/
-        aux = inicio;
-        while (aux != null) {
-            /* Se encontrar o elemento, retorna sua posicao n;*/
-            if (aux.getConteudo() == dado){
-                return cont;
-            }
-
-            /* modifica "aux" para apontar para o proximo elemento da lista */
-            aux = aux.getProx();
-            cont++;
-        }
-
-        return -1;
-    }
-
-    /** Insere nó em lista vazia */
     private boolean insereInicioLista(int valor) {
-        // Aloca memoria para novo no
         No novoNo = new No();
-
-        // Insere novo elemento na cabeca da lista
         novoNo.setConteudo(valor);
         novoNo.setProx(inicio);
-
-        novoNo.setAnt(null); // Nova instrucao
+        novoNo.setAnt(null);
         if (vazia())
-            fim = novoNo; // Nova instrucao
+            fim = novoNo;
         else
-            inicio.setAnt(novoNo); // Nova instrucao
-
+            inicio.setAnt(novoNo);
         inicio = novoNo;
         tamanho++;
         return true;
     }
 
-    /** Insere nó no meio da lista */
     private boolean insereMeioLista(int pos, int dado){
         int cont = 1;
-
-        // Aloca memoria para novo no
         No novoNo = new No();
         novoNo.setConteudo(dado);
-
-        // Localiza a pos. onde será inserido o novo nó
         No aux = inicio;
         while ((cont < pos-1) && (aux != null)){
             aux = aux.getProx();
             cont++;
         }
-
-        if (aux == null) {  // pos. inválida
-            return false;
-        }
-
-        // Insere novo elemento apos aux
-        novoNo.setAnt(aux); // Nova instrucao
+        if (aux == null) return false;
+        novoNo.setAnt(aux);
         novoNo.setProx(aux.getProx());
-
-        aux.getProx().setAnt(novoNo); // Nova instrucao
-
+        aux.getProx().setAnt(novoNo);
         aux.setProx(novoNo);
-
         tamanho++;
         return true;
     }
 
-    /** Insere nó no fim da lista */
     private boolean insereFimLista(int dado){
-        // Aloca memoria para novo no
         No novoNo = new No();
         novoNo.setConteudo(dado);
-
-        // Procura o final da lista
         No aux = inicio;
         while(aux.getProx() != null){
             aux = aux.getProx();
         }
-
         novoNo.setProx(null);
         aux.setProx(novoNo);
-
-        novoNo.setAnt(fim);  // Nova instrucao
-        fim.setProx(novoNo); // Nova instrucao
-        fim = novoNo; 		// Nova instrucao
-
+        novoNo.setAnt(fim);
+        fim.setProx(novoNo);
+        fim = novoNo;
         this.tamanho++;
         return true;
     }
 
-    /**Insere um elemento em uma determinada posição
-     Retorna true se conseguir inserir e
-     false caso contrario */
     public boolean insere(int pos, int dado) {
         if ((vazia()) && (pos != 1)){
             throw new ErroPadrao("Lista vazia mas posição inválida.");
@@ -161,21 +98,17 @@ public class LDE {
         if ((!vazia()) && (pos > tamanho + 1) || (pos < 1)){
             throw new ErroPadrao("Posição inválida.");
         }
-        /* inserção no início da lista (ou lista vazia)*/
         if (pos == 1){
             return insereInicioLista(dado);
         }
-        /* inserção no fim da lista */
         else if (pos == tamanho+1){
             return insereFimLista(dado);
         }
-        /* inserção no meio da lista */
         else{
             return insereMeioLista(pos, dado);
         }
     }
 
-    // Remove elemento do início de uma lista unitária
     private int removeInicioListaUnitaria(){
         int dado = inicio.getConteudo();
         inicio = null;
@@ -184,54 +117,34 @@ public class LDE {
         return dado;
     }
 
-    /** Remove elemento do início da lista */
     private int removeInicioLista(){
         No p = inicio;
-
-        // Dado recebe o dado removido
         int dado = p.getConteudo();
-
-        // Retira o 1o elemento da lista (p)
         inicio = p.getProx();
-        p.getProx().setAnt(null);  // Nova instrucao
-
+        p.getProx().setAnt(null);
         tamanho--;
-
-        // Sugere ao garbage collector que libere a memoria
-        //  da regiao apontada por p
         p = null;
-
         return dado;
     }
 
-    /** Remove elemento no meio da lista */
     private int removeMeioLista(int pos){
         No p = inicio;
         int n = 1;
-
-        // Localiza o nó que será removido
         while((n <= pos-1) && (p != null)){
             p = p.getProx();
             n++;
         }
-
         if (p == null) {
-            return -1; // pos. inválida
+            return -1;
         }
-
         int dado = p.getConteudo();
         p.getAnt().setProx(p.getProx());
         p.getProx().setAnt(p.getAnt());
-
         tamanho--;
-
-        /* sugere ao garbage collector que libere a memoria
-         *  da regiao apontada por p*/
         p = null;
         return dado;
     }
 
-    /** Remove elemento do início da lista */
     private int removeFimLista(){
         No p = fim;
         int dado = p.getConteudo();
@@ -244,31 +157,22 @@ public class LDE {
         return dado;
     }
 
-
-    /**Remove um elemento de uma determinada posição
-     Retorna o valor a ser removido.
-     -1 se a posição for inválida ou a lista estiver vazia*/
     public int remove(int pos) {
-        // Lista vazia
         if (vazia()) {
             throw new ErroPadrao("Lista vazia.");
         }
         if ((pos > tamanho) || (pos < 1)){
             throw new ErroPadrao("Posição inválida.");
         }
-
-        // Remoção do elemento da cabeça da lista
         if ((pos == 1) && (tamanho() == 1)){
             return removeInicioListaUnitaria();
         }
         else if (pos == 1){
             return removeInicioLista();
         }
-        // Remocao no fim da lista
         else if (pos == tamanho()){
             return removeFimLista();
         }
-        // Remoção em outro lugar da lista
         else{
             return removeMeioLista(pos);
         }

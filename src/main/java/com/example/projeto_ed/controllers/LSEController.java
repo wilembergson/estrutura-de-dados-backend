@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lista-encadeada")
+@RequestMapping("/lse")
 public class LSEController {
-    private LSE listaEnc = new LSE();
+    private LSE lista = new LSE();
 
     private List<No> listar(){
         ArrayList<No> listaAux = new ArrayList<No>();
-        for(int i=1; i<=listaEnc.tamanho(); i++){
-            listaAux.add(listaEnc.elemento(i));
+        for(int i = 1; i<= lista.tamanho(); i++){
+            listaAux.add(lista.elemento(i));
         }
         return listaAux;
     }
@@ -29,12 +29,12 @@ public class LSEController {
 
     @PostMapping("/adicionar")
     public void adicionar(@RequestBody NovoElementoDTO elemento){
-        listaEnc.insere(elemento.getPosicao(), elemento.getValor());
+        lista.insere(elemento.getPosicao(), elemento.getValor());
     }
 
     @DeleteMapping("/remover/{posicao}")
     public void remover(@PathVariable("posicao") int posicao){
-        listaEnc.remove(posicao);
+        lista.remove(posicao);
     }
 
     @GetMapping("/obter-item")
@@ -47,6 +47,6 @@ public class LSEController {
            }
            throw new ErroPadrao("Valor não encontrado na lista.");
        }
-        return listaEnc.elemento(pos).getConteudo();
+        return lista.elemento(pos).getConteudo();
     }
 }

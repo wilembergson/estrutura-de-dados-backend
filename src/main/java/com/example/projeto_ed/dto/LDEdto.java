@@ -2,7 +2,7 @@ package com.example.projeto_ed.dto;
 
 public class LDEdto {
     private boolean ant;
-    private Integer valor;
+    private Integer conteudo;
     private boolean prox;
 
     public LDEdto(){
@@ -18,11 +18,11 @@ public class LDEdto {
         this.ant = ant;
     }
 
-    public Integer getValor() {
-        return valor;
+    public Integer getConteudo() {
+        return conteudo;
     }
-    public void setValor(Integer valor){
-        this.valor = valor;
+    public void setConteudo(Integer conteudo){
+        this.conteudo = conteudo;
     }
 
     public boolean getProx(){

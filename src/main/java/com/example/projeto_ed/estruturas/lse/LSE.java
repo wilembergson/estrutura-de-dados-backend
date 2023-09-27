@@ -42,23 +42,6 @@ public class LSE {
 	    return aux;
 	}
 
-	public int posicao (int dado) {
-	    if (vazia()) {
-	        throw new ErroPadrao("A lista está vazia!");
-	    }
-
-	    No aux = cabeca;
-	    int cont = 1;
-	    while (aux != null) {
-	        if (aux.getConteudo() == dado){
-	            return cont;
-	        }
-	        aux = aux.getProx();
-	        cont++;
-	    }
-	    return -1;
-	}
-
 	private boolean insereInicioLista(int valor) {
 	    No novoNo = new No();
 	    novoNo.setConteudo(valor);
@@ -86,11 +69,9 @@ public class LSE {
 		if ((vazia()) && (pos != 1)){
 	        throw new ErroPadrao("Posição inválida.");
 	    }
-
 		if ((pos <= 0) || pos > (nElementos+1)) {
 			throw new ErroPadrao("Posição inválida.");
 		}
-
 	    if (pos == 1){
 	        return insereInicioLista(valor);
 	    }
@@ -125,11 +106,9 @@ public class LSE {
 		if (vazia()) {
 			throw new ErroPadrao("A lista está vazia.");
 		}
-
 	    if ((pos <= 0) || (pos > nElementos)) {
 			throw new ErroPadrao("Posição inválida.");
 	    }
-
 	    if (pos == 1){
 	        return removeInicioLista();
 	    }

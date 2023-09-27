@@ -12,22 +12,23 @@ import java.util.List;
 @RestController
 @RequestMapping("/lde")
 public class LDEController {
-    private LDE listaEnc = new LDE();
+    private LDE lista = new LDE();
 
     private List<LDEdto> listar(){
         ArrayList<LDEdto> listaAux = new ArrayList<LDEdto>();
-        for(int i=1; i<=listaEnc.tamanho(); i++){
+        for(int i = 1; i<= lista.tamanho(); i++){
             LDEdto dado = new LDEdto();
-            if(listaEnc.elemento(i).getAnt() == null) dado.setAnt(false);
-            if(listaEnc.elemento(i).getProx() == null) dado.setProx(false);
-            dado.setValor(listaEnc.elemento(i).getConteudo());
+            if(lista.elemento(i).getAnt() == null) dado.setAnt(false);
+            if(lista.elemento(i).getProx() == null) dado.setProx(false);
+            dado.setConteudo(lista.elemento(i).getConteudo());
             listaAux.add(dado);
         }
         return listaAux;
     }
+
     @PostMapping("/adicionar")
     public void adicionar(@RequestBody NovoElementoDTO elemento){
-        listaEnc.insere(elemento.getPosicao(), elemento.getValor());
+        lista.insere(elemento.getPosicao(), elemento.getValor());
     }
 
     @GetMapping("/obterlista")
@@ -37,7 +38,7 @@ public class LDEController {
 
     @DeleteMapping("/remover/{posicao}")
     public void remover(@PathVariable("posicao") int posicao){
-        listaEnc.remove(posicao);
+        lista.remove(posicao);
     }
 
     @GetMapping("/obter-item")
@@ -46,10 +47,10 @@ public class LDEController {
         if(val != null){
            List<LDEdto> lista = listar();
            for(LDEdto no: lista){
-               if(no.getValor() == val) return val;
+               if(no.getConteudo() == val) return val;
            }
            throw new ErroPadrao("Valor não encontrado na lista.");
         }
-        return listaEnc.elemento(pos).getConteudo();
+        return lista.elemento(pos).getConteudo();
     }
 }
