@@ -48,14 +48,9 @@ public class SequencialController {
     public int obter(@RequestParam(name = "pos", required = false) Integer pos, @RequestParam(name = "val", required = false) Integer val){
         listaInicializadaCheck();
         if(pos == null && val == null) throw new ErroPadrao("Selecione 'Posição' ou 'Valor'.");
-        if(val != null){
-           List<Integer> lista = listar();
-           for(Integer item: lista){
-               if(item == val) return val;
-           }
-           throw new ErroPadrao("Valor não encontrado na lista.");
-       }
-        return lista.elemento(pos);
+        if(pos != null) return lista.elemento(pos);
+        if(listar().contains(val)) return val;
+        throw new ErroPadrao("Valor não encontrado na lista.");
     }
 
     private List<Integer> listar(){

@@ -40,13 +40,10 @@ public class LSEController {
     @GetMapping("/obter-item")
     public int obter(@RequestParam(name = "pos", required = false) Integer pos, @RequestParam(name = "val", required = false) Integer val){
         if(pos == null && val == null) throw new ErroPadrao("Selecione 'Posição' ou 'Valor'.");
-        if(val != null){
-           List<No> lista = listar();
-           for(No no: lista){
+        if(pos != null) return lista.elemento(pos).getConteudo();
+        for(No no: listar()){
                if(no.getConteudo() == val) return val;
-           }
-           throw new ErroPadrao("Valor não encontrado na lista.");
-       }
-        return lista.elemento(pos).getConteudo();
+        }
+        throw new ErroPadrao("Valor não encontrado na lista.");
     }
 }

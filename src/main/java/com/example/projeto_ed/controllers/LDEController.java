@@ -44,13 +44,10 @@ public class LDEController {
     @GetMapping("/obter-item")
     public int obter(@RequestParam(name = "pos", required = false) Integer pos, @RequestParam(name = "val", required = false) Integer val){
         if(pos == null && val == null) throw new ErroPadrao("Selecione 'Posição' ou 'Valor'.");
-        if(val != null){
-           List<LDEdto> lista = listar();
-           for(LDEdto no: lista){
-               if(no.getConteudo() == val) return val;
-           }
-           throw new ErroPadrao("Valor não encontrado na lista.");
+        if(pos != null) return lista.elemento(pos).getConteudo();
+        for(LDEdto no: listar()){
+            if(no.getConteudo().equals(val)) return val;
         }
-        return lista.elemento(pos).getConteudo();
+        throw new ErroPadrao("Valor não encontrado na lista.");
     }
 }
