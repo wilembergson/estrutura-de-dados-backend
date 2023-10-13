@@ -1,6 +1,6 @@
 package com.example.projeto_ed.controllers;
 
-import com.example.projeto_ed.dto.NovoElementoPilhaDTO;
+import com.example.projeto_ed.dto.NovoElementoDTO;
 import com.example.projeto_ed.estruturas.pilha.Pilha;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ public class PilhaController {
     private Pilha pilha = new Pilha();
 
     @PostMapping("/adicionar")
-    public void adicionar(@RequestBody NovoElementoPilhaDTO elemento){
+    public void adicionar(@RequestBody NovoElementoDTO elemento){
         pilha.push(elemento.getValor());
     }
 

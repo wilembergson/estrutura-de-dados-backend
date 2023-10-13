@@ -1,6 +1,6 @@
 package com.example.projeto_ed.controllers;
 
-import com.example.projeto_ed.dto.NovoElementoDTO;
+import com.example.projeto_ed.dto.NovoElementoListaDTO;
 import com.example.projeto_ed.exceptions.ErroPadrao;
 import com.example.projeto_ed.estruturas.lse.LSE;
 import com.example.projeto_ed.estruturas.lse.No;
@@ -28,7 +28,7 @@ public class LSEController {
     }
 
     @PostMapping("/adicionar")
-    public void adicionar(@RequestBody NovoElementoDTO elemento){
+    public void adicionar(@RequestBody NovoElementoListaDTO elemento){
         lista.insere(elemento.getPosicao(), elemento.getValor());
     }
 
