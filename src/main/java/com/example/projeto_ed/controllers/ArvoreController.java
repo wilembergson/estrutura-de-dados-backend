@@ -14,8 +14,8 @@ public class ArvoreController {
     private ABP arvore = new ABP();
 
 
-    @PostMapping("/adicionar")
-    public void adicionar(@RequestBody NovoElementoDTO elemento){
+    @PostMapping("/adicionar-teste")
+    public void adicionarTeste(@RequestBody NovoElementoDTO elemento){
         arvore.insere(10);
         arvore.insere(6);
         arvore.insere(22);
@@ -32,7 +32,10 @@ public class ArvoreController {
         arvore.insere(1);
         arvore.insere(7);*/
     }
-
+    @PostMapping("/adicionar")
+    public void adicionar(@RequestBody NovoElementoDTO elemento){
+        arvore.insere(elemento.getValor());
+    }
     @GetMapping("/listar")
     public No obterArvore(){
         return arvore.exibeRaiz();
