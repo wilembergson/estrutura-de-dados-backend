@@ -1,5 +1,7 @@
 package com.example.projeto_ed.estruturas.arvore;
 
+import com.example.projeto_ed.exceptions.ErroPadrao;
+
 public class ABP {
 	private No raiz;
 	
@@ -17,7 +19,7 @@ public class ABP {
 	    encontrado, caso contrário retorna NULL*/
 	private No busca(No T, int valor) {
 		if (T == null)
-			return null;  // Arvore Vazia
+			throw new ErroPadrao("Número não encontrado.");
 
 		if(T.getConteudo() == valor)
 			return T; 	// Elem. encontrado na raiz
@@ -31,11 +33,8 @@ public class ABP {
 	/**Buscar um elemento na ABP
     		Retorna o endereço se o elemento for
     		encontrado, caso contrário retorna NULL*/
-	public No busca(int valor) {          
-		//if (raiz != null) 
+	public No busca(int valor) {
 			return busca(raiz, valor);
-		
-		//return null;
 	}
 	
 	public No buscaIterativa(int valor) {          

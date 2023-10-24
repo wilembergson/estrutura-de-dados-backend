@@ -40,4 +40,9 @@ public class ArvoreController {
     public No obterArvore(){
         return arvore.exibeRaiz();
     }
+
+    @GetMapping("/obter/{valor}")
+    public Integer obterItem(@PathVariable("valor") String valor){
+        return arvore.busca(Integer.parseInt(valor)).getConteudo();
+    }
 }
