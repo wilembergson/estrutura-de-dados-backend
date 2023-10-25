@@ -25,12 +25,12 @@ public class ArvoreController {
         arvore.insere(3);
         arvore.insere(35);
         arvore.insere(16);
-        /*arvore.insere(14);
+        arvore.insere(14);
         arvore.insere(9);
         arvore.insere(36);
         arvore.insere(34);
         arvore.insere(1);
-        arvore.insere(7);*/
+        arvore.insere(7);
     }
     @PostMapping("/adicionar")
     public void adicionar(@RequestBody NovoElementoDTO elemento){
@@ -44,5 +44,10 @@ public class ArvoreController {
     @GetMapping("/obter/{valor}")
     public Integer obterItem(@PathVariable("valor") String valor){
         return arvore.busca(Integer.parseInt(valor)).getConteudo();
+    }
+
+    @DeleteMapping("/delete/{valor}")
+    public void deletarItem(@PathVariable("valor") String valor){
+        arvore.deleta(Integer.parseInt(valor));
     }
 }

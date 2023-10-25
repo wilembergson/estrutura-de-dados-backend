@@ -20,19 +20,14 @@ public class ABP {
 	private No busca(No T, int valor) {
 		if (T == null)
 			throw new ErroPadrao("Número não encontrado.");
-
 		if(T.getConteudo() == valor)
-			return T; 	// Elem. encontrado na raiz
-		
+			return T;
 		if (valor < T.getConteudo())
 			return busca(T.getEsq(), valor);
 	    else
 			return busca(T.getDir(), valor);
 	}
-	
-	/**Buscar um elemento na ABP
-    		Retorna o endereço se o elemento for
-    		encontrado, caso contrário retorna NULL*/
+
 	public No busca(int valor) {
 			return busca(raiz, valor);
 	}
@@ -102,25 +97,17 @@ public class ABP {
 		else
 			exibeDec(raiz);
 	}
-	
-	/**Insere um nó em uma árvore ABP
-	    Retorna 1 se a inserção for com sucesso.
-	    Caso contrário retorna 0*/
-	public boolean insere(int valor){
 
+	public boolean insere(int valor){
 		No novoNo = new No();
 		novoNo.setConteudo(valor);
 		novoNo.setEsq(null);
 		novoNo.setDir(null);
-
-		// Quando a arvore estiver vazia, o novoNó será a raiz da arv
 		if (raiz == null){ 
 	 		raiz = novoNo;
 			return true;
 		}
-
-	    // Procura a posicao correta pra inserir o novo no
-	    No aux = raiz;
+		No aux = raiz;
 	    No p = null;
 	    while (aux != null) {
 	    	p = aux;
@@ -129,12 +116,50 @@ public class ABP {
 			else
 				aux = aux.getDir();
 		}
-
-		// Encontrou um nó folha para inserir
 		if (valor < p.getConteudo())
 			p.setEsq(novoNo);
 		else
 			p.setDir(novoNo);
 		return true;
 	}
+
+	public void deleta(int valor) {
+		if (raiz == null) throw new ErroPadrao("Árvore vazia.");
+		busca(valor);
+		raiz = deletaRecursivo(raiz, valor);
+	}
+
+	private No deletaRecursivo(No raiz, int valor) {
+		if (raiz == null) {
+			return raiz;
+		}
+
+		if (valor < raiz.getConteudo()) {
+			raiz.setEsq(deletaRecursivo(raiz.getEsq(), valor));
+		} else if (valor > raiz.getConteudo()) {
+			raiz.setDir(deletaRecursivo(raiz.getDir(), valor));
+		} else {
+			// Nó com o valor a ser deletado encontrado.
+			// Caso 1: Nó com um filho ou nenhum filho
+			if (raiz.getEsq() == null) {
+				return raiz.getDir();
+			} else if (raiz.getDir() == null) {
+				return raiz.getEsq();
+			}
+			// Caso 2: Nó com dois filhos, encontre o sucessor in-order (nó mínimo na subárvore direita).
+			raiz.setConteudo(encontraMenorValor(raiz.getDir()));
+			raiz.setDir(deletaRecursivo(raiz.getDir(), raiz.getConteudo()));
+		}
+		return raiz;
+	}
+
+	private int encontraMenorValor(No raiz) {
+		int menorValor = raiz.getConteudo();
+		while (raiz.getEsq() != null) {
+			menorValor = raiz.getEsq().getConteudo();
+			raiz = raiz.getEsq();
+		}
+		return menorValor;
+	}
+
 }
