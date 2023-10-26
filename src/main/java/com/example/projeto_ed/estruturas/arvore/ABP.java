@@ -2,6 +2,9 @@ package com.example.projeto_ed.estruturas.arvore;
 
 import com.example.projeto_ed.exceptions.ErroPadrao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ABP {
 	private No raiz;
 	
@@ -162,4 +165,23 @@ public class ABP {
 		return menorValor;
 	}
 
+	private List<Integer> caminhamento = new ArrayList<>();
+	public void preOrdem(No T) {
+		if (T != null) {
+			caminhamento.add(T.getConteudo());
+			preOrdem(T.getEsq()); // Percorre a subárvore esquerda
+			preOrdem(T.getDir()); // Percorre a subárvore direita
+		}
+	}
+
+	public String preOrdem() {
+		if (raiz == null) {
+			throw new ErroPadrao("Árvore vazía.");
+		} else {
+			preOrdem(raiz);
+			String result = caminhamento.toString();
+			caminhamento.clear();
+			return result;
+		}
+	}
 }

@@ -50,4 +50,9 @@ public class ArvoreController {
     public void deletarItem(@PathVariable("valor") String valor){
         arvore.deleta(Integer.parseInt(valor));
     }
+
+    @GetMapping("/preordem")
+    public String preOrdem(){
+        return arvore.preOrdem();
+    }
 }
