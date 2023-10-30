@@ -13,25 +13,6 @@ import java.util.List;
 public class ArvoreController {
     private ABP arvore = new ABP();
 
-
-    @PostMapping("/adicionar-teste")
-    public void adicionarTeste(@RequestBody NovoElementoDTO elemento){
-        arvore.insere(10);
-        arvore.insere(6);
-        arvore.insere(22);
-        arvore.insere(15);
-        arvore.insere(2);
-        arvore.insere(8);
-        arvore.insere(3);
-        arvore.insere(35);
-        arvore.insere(16);
-        arvore.insere(14);
-        arvore.insere(9);
-        arvore.insere(36);
-        arvore.insere(34);
-        arvore.insere(1);
-        arvore.insere(7);
-    }
     @PostMapping("/adicionar")
     public void adicionar(@RequestBody NovoElementoDTO elemento){
         arvore.insere(elemento.getValor());
@@ -53,16 +34,16 @@ public class ArvoreController {
 
     @GetMapping("/preordem")
     public String preOrdem(){
-        return arvore.preOrdem();
+        return arvore.caminhamento("preordem");
     }
 
     @GetMapping("/inordem")
     public String inOrdem(){
-        return arvore.inOrdem();
+        return arvore.caminhamento("inordem");
     }
 
     @GetMapping("/posordem")
     public String posOrdem(){
-        return arvore.posOrdem();
+        return arvore.caminhamento("posordem");
     }
 }

@@ -11,15 +11,11 @@ public class ABP {
 	public ABP(){
 		raiz = null;
 	}
-	
-	/** Verifica se a árvore está vazia */
+
 	public boolean vazia (){
 		return (raiz == null);
 	}
 
-	/**Buscar recursivamente a partir da raiz.
-	    Retorna o endereço se o elemento for
-	    encontrado, caso contrário retorna NULL*/
 	private No busca(No T, int valor) {
 		if (T == null)
 			throw new ErroPadrao("Número não encontrado.");
@@ -61,10 +57,7 @@ public class ABP {
 
 		return null;
 	}
-	
-	
-	/**Exibe o conteúdo de uma árvore no formato in-ordem
-	    (preserva a ordenação)*/
+
 	private void exibe (No T){
 		if (T != null) {
 			exibe(T.getEsq());
@@ -84,8 +77,6 @@ public class ABP {
 		return raiz;
 	}
 
-	/**Exibe o conteúdo de uma árvore no formato in-ordem
-    (preserva a ordenação)*/
 	private void exibeDec(No T){
 		if (T != null) {
 			exibeDec(T.getDir());
@@ -174,33 +165,11 @@ public class ABP {
 		}
 	}
 
-	public String preOrdem() {
-		if (raiz == null) {
-			throw new ErroPadrao("Árvore vazía.");
-		} else {
-			preOrdem(raiz);
-			String result = caminhamento.toString();
-			caminhamento.clear();
-			return result;
-		}
-	}
-
 	public void inOrdem(No T) {
 		if (T != null) {
 			inOrdem(T.getEsq()); // Percorre a subárvore esquerda
 			caminhamento.add(T.getConteudo()); // Visita o nó
 			inOrdem(T.getDir()); // Percorre a subárvore direita
-		}
-	}
-
-	public String inOrdem() {
-		if (raiz == null) {
-			throw new ErroPadrao("Árvore vazia.");
-		} else {
-			inOrdem(raiz);
-			String result = caminhamento.toString();
-			caminhamento.clear();
-			return result;
 		}
 	}
 
@@ -212,11 +181,19 @@ public class ABP {
 		}
 	}
 
-	public String posOrdem() {
+	public String caminhamento(String tipoCaminhamento) {
 		if (raiz == null) {
 			throw new ErroPadrao("Árvore vazia.");
 		} else {
-			posOrdem(raiz);
+			if(tipoCaminhamento == "preordem"){
+				preOrdem(raiz);
+			}else if(tipoCaminhamento == "inordem"){
+				inOrdem(raiz);
+			}else if( tipoCaminhamento == "posordem"){
+				posOrdem(raiz);
+			}else{
+				throw new ErroPadrao("Adicione um tipo de caminhamento válido.");
+			}
 			String result = caminhamento.toString();
 			caminhamento.clear();
 			return result;
