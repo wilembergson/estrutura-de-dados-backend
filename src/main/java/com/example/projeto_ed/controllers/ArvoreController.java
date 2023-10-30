@@ -55,4 +55,14 @@ public class ArvoreController {
     public String preOrdem(){
         return arvore.preOrdem();
     }
+
+    @GetMapping("/inordem")
+    public String inOrdem(){
+        return arvore.inOrdem();
+    }
+
+    @GetMapping("/posordem")
+    public String posOrdem(){
+        return arvore.posOrdem();
+    }
 }

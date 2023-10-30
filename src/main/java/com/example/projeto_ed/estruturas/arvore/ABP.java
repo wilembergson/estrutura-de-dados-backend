@@ -184,4 +184,42 @@ public class ABP {
 			return result;
 		}
 	}
+
+	public void inOrdem(No T) {
+		if (T != null) {
+			inOrdem(T.getEsq()); // Percorre a subárvore esquerda
+			caminhamento.add(T.getConteudo()); // Visita o nó
+			inOrdem(T.getDir()); // Percorre a subárvore direita
+		}
+	}
+
+	public String inOrdem() {
+		if (raiz == null) {
+			throw new ErroPadrao("Árvore vazia.");
+		} else {
+			inOrdem(raiz);
+			String result = caminhamento.toString();
+			caminhamento.clear();
+			return result;
+		}
+	}
+
+	public void posOrdem(No T) {
+		if (T != null) {
+			posOrdem(T.getEsq()); // Percorre a subárvore esquerda
+			posOrdem(T.getDir()); // Percorre a subárvore direita
+			caminhamento.add(T.getConteudo()); // Visita o nó
+		}
+	}
+
+	public String posOrdem() {
+		if (raiz == null) {
+			throw new ErroPadrao("Árvore vazia.");
+		} else {
+			posOrdem(raiz);
+			String result = caminhamento.toString();
+			caminhamento.clear();
+			return result;
+		}
+	}
 }
